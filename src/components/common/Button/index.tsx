@@ -7,7 +7,7 @@ import {
   TouchableOpacityProps,
   View,
 } from 'react-native';
-import {useState} from 'react';
+import {ReactElement, useState} from 'react';
 
 type ButtonVariant = 'primary' | 'secondary' | 'sub' | 'alert';
 type ButtonType = 'solid' | 'line';
@@ -19,8 +19,8 @@ interface ButtonProps extends TouchableOpacityProps {
   size: ButtonSize;
   width?: number;
   height?: number;
-  leftElement?: any;
-  rightElement?: any;
+  leftElement?: ReactElement;
+  rightElement?: ReactElement;
   disabled?: boolean;
 }
 
@@ -45,13 +45,13 @@ const TEXT_COLOR = {
       primary: `${theme.palette.primary_normal}`,
       secondary: `${theme.palette.secondary_normal}`,
       sub: `${theme.palette.text_alternative}`,
-      alert: '',
+      alert: `${theme.palette.status_alert}`,
     },
     active: {
       primary: `${theme.palette.primary_strong}`,
       secondary: `${theme.palette.secondary_strong}`,
       sub: `${theme.palette.text_alternative}`,
-      alert: '',
+      alert: `${theme.palette.white}`,
     },
     disabled: `${theme.palette.line_disable}`,
   },
@@ -62,13 +62,13 @@ const LINE_COLOR = {
     primary: `${theme.palette.primary_normal}`,
     secondary: `${theme.palette.secondary_normal}`,
     sub: `${theme.palette.text_assistive}`,
-    alert: '',
+    alert: `${theme.palette.status_alert}`,
   },
   active: {
     primary: `${theme.palette.primary_strong}`,
     secondary: `${theme.palette.secondary_strong}`,
     sub: `${theme.palette.text_alternative}`,
-    alert: '',
+    alert: `${theme.palette.status_pressed}`,
   },
   disabled: `${theme.palette.line_disable}`,
 };
@@ -85,7 +85,7 @@ const BUTTON_COLOR = {
       primary: `${theme.palette.primary_strong}`,
       secondary: `${theme.palette.secondary_strong}`,
       sub: `${theme.palette.fill_strong}`,
-      alert: `${theme.palette.status_alert}`,
+      alert: `${theme.palette.status_pressed}`,
     },
     disabled: {
       primary: `${theme.palette.fill_disable}`,
@@ -116,20 +116,24 @@ const BUTTON_COLOR = {
   },
 };
 
-const BUTTON_TYPO = {
-  small: theme.typo.Body1,
-  default: theme.typo.Body1,
-  large: theme.typo.Body1,
+const BUTTON_PADDING = {
+  large: '12px 24px',
+  default: '8px 16px',
+  small: '6px 12px',
 };
 
 /**
- * @default button: (button 태그 속성 그대로)
- *
- * @param varient 버튼 종류 'default' | 'glass' | 'white' | 'admin' | 'admin_stroke' | 'admin_navy'
- * @param webWidth? web 버튼 너비
- * @param mobileWidth? mobile 버튼 너비 (default 100%)
+ * @default TouchableOpacityProps
+ * @param varient 'primary' | 'secondary' | 'sub' | 'alert';
+ * @param type 'solid' | 'line';
+ * @param size 'large' | 'default' | 'small';
+ * @param width? 너비
+ * @param height? 높이
+ * @param leftElement? 왼쪽 element(ex. svg)
+ * @param rightElement? 오른쪽 element
+ * @param disabled?
  */
-export const NewButton = ({
+export const Button = ({
   children,
   variant,
   type,
@@ -182,7 +186,7 @@ const StyledButton = styled(TouchableOpacity)<{
   disabled?: boolean;
 }>`
   gap: 8px;
-  padding: 12px 24px;
+  padding: ${({size}) => `${BUTTON_PADDING[size]}`};
 
   width: ${({width}) => (width ? `${width}px` : 'auto')};
   height: ${({height}) => (height ? `${height}px` : 'auto')};
@@ -190,7 +194,8 @@ const StyledButton = styled(TouchableOpacity)<{
   background-color: ${({variant, type}) =>
     `${BUTTON_COLOR[type].normal[variant]}`};
 
-  border-color: ${({variant}) => `${LINE_COLOR.normal[variant]}`};
+  border-color: ${({variant, type}) =>
+    type === 'line' ? `${LINE_COLOR.normal[variant]}` : 'transparent'};
   border-width: 1px;
 
   border-radius: 99px;
@@ -206,9 +211,9 @@ const StyledButton = styled(TouchableOpacity)<{
     disabled
       ? css`
           background-color: ${BUTTON_COLOR[type].disabled[variant]};
-          border-color: ${type === 'solid'
-            ? 'transparent'
-            : `${LINE_COLOR.normal[variant]}`};
+          border-color: ${type === 'line'
+            ? `${LINE_COLOR.disabled}`
+            : 'transparent'};
         `
       : css``};
 `;
@@ -220,7 +225,7 @@ const StyledText = styled(Text)<{
   isPressed: boolean;
   disabled?: boolean;
 }>`
-  ${BUTTON_TYPO.default};
+  ${theme.typo.Body2};
   color: ${({variant, type}) => `${TEXT_COLOR[type].normal[variant]}`};
 
   ${({isPressed, variant, type}) =>
