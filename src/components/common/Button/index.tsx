@@ -1,6 +1,5 @@
 /* eslint-disable react/react-in-jsx-scope */
 import {css, styled} from 'styled-components';
-import {theme} from '../../../styles/theme';
 import {
   Text,
   TouchableOpacity,
@@ -8,6 +7,7 @@ import {
   View,
 } from 'react-native';
 import {ReactElement, useState} from 'react';
+import {theme} from '../../../styles/theme/theme';
 
 type ButtonVariant = 'primary' | 'secondary' | 'sub' | 'alert';
 type ButtonType = 'solid' | 'line';
