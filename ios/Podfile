@@ -45,6 +45,9 @@ target 'Gifty' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
+  # Add the 'react-native-linear-gradient' pod below this line
+  pod 'BVLinearGradient', :path => '../node_modules/react-native-linear-gradient'
+
   target 'GiftyTests' do
     inherit! :complete
     # Pods for testing

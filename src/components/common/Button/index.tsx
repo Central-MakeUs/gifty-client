@@ -7,7 +7,7 @@ import {
   View,
 } from 'react-native';
 import {ReactElement, useState} from 'react';
-import {theme} from '../../../styles/theme/theme';
+import {theme} from '../../../styles/theme';
 
 type ButtonVariant = 'primary' | 'secondary' | 'sub' | 'alert';
 type ButtonType = 'solid' | 'line';

@@ -15,7 +15,7 @@ export const palette = {
 
   white: '#ffffff',
   black: '#000000',
-  gradation: 'linear-gradient(180deg, #00AAFF 0%, #0080FF 100%)',
+  gradation: "'#00AAFF', '#0080FF'",
 
   status_alert: '#f0425f',
   status_caution: '#ffd91a',
