@@ -20,7 +20,8 @@ const TEXT_COLOR = {
 };
 
 /**
- * @param count: number;
+ * @param variant: 'primary' | 'secondary' | 'neutral' | 'disable';
+ * @param text: string
  */
 export const Chips = ({
   variant,
