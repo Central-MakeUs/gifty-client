@@ -124,7 +124,7 @@ const BUTTON_PADDING = {
 
 /**
  * @default TouchableOpacityProps
- * @param varient 'primary' | 'secondary' | 'sub' | 'alert';
+ * @param variant 'primary' | 'secondary' | 'sub' | 'alert';
  * @param type 'solid' | 'line';
  * @param size 'large' | 'default' | 'small';
  * @param width? 너비

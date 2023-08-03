@@ -69,7 +69,7 @@ const BUTTON_COLOR = {
 
 /**
  * @default TouchableOpacityProps
- * @param varient 'default' | 'gradation' | 'sub';
+ * @param variant 'default' | 'gradation' | 'sub';
  * @param type 'fill' | 'long';
  * @param disabled?
  */
