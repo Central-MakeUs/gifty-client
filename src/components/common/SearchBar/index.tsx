@@ -1,60 +1,48 @@
 import React from 'react';
+import {useController, UseControllerProps} from 'react-hook-form';
 import {Platform, TextInput, TextInputProps, View} from 'react-native';
 import styled from 'styled-components';
 import {SearchIcon} from '../../../assets/search/SearchIcon';
-import {KeyOfPalette, KeyOfTypo, theme} from '../../../styles/theme';
+import {theme} from '../../../styles/theme';
 
-export interface SearchBarProps extends TextInputProps {
-  value?: string;
-  width?: number | string;
-  height?: number;
-  leftIcon?: any;
-  rightIcon?: any;
-  errorMessage?: string;
-  errorMessageColor?: KeyOfPalette;
-  padding?: string;
-  typo?: KeyOfTypo;
-  setValue?: Function;
+export interface SearchBarProps extends TextInputProps, UseControllerProps {
+  defaultValue?: string; //ADD DEFAULT VALUE TO PROPS
 }
 
 /**
- * @default: input (input 태그 속성 그대로)
+ * @default: TextInputProps, UseControllerProps
  *
- * @param width?: number (기본값: 100%)
- * @param height?: number (기본값: 56px)
- * @param leftImage?: 왼쪽에 들어갈 수 있는 element
- * @param rightImage?: 오른쪽에 들어갈 수 있는 element
- * @param errorMessage?: string
- * @param messageColor?: KeyOfPalette
+ * @param control
+ * @param name
  */
 
-export const SearchBar = React.forwardRef<TextInput, SearchBarProps>(
-  ({value, height = 56, typo = 'Label1', ...props}: SearchBarProps, ref) => {
-    return (
-      <Wrapper>
-        <InputWrapper width={props.width} height={height}>
-          <StyledInput
-            textAlignVertical={Platform.OS === 'android' ? 'center' : 'auto'}
-            placeholderTextColor={`${theme.palette.text_alternative}`}
-            value={value}
-            ref={ref}
-            onPressIn={props.onPressIn}
-            onPressOut={props.onPressOut}
-            typo={typo}
-            {...props}
-          />
-          <SearchIcon
-            color={
-              value
-                ? `${theme.palette.text_normal}`
-                : `${theme.palette.text_alternative}`
-            }
-          />
-        </InputWrapper>
-      </Wrapper>
-    );
-  },
-);
+export const SearchBar = ({name, control, ...props}: SearchBarProps) => {
+  const {field} = useController({
+    control,
+    defaultValue: '',
+    name,
+  });
+  return (
+    <Wrapper>
+      <InputWrapper>
+        <StyledInput
+          textAlignVertical={Platform.OS === 'android' ? 'center' : 'auto'}
+          placeholderTextColor={`${theme.palette.text_alternative}`}
+          value={field.value}
+          onChangeText={field.onChange}
+          {...props}
+        />
+        <SearchIcon
+          color={
+            field.value
+              ? `${theme.palette.text_normal}`
+              : `${theme.palette.text_alternative}`
+          }
+        />
+      </InputWrapper>
+    </Wrapper>
+  );
+};
 
 const Wrapper = styled(View)`
   margin: 0px 16px;
@@ -63,14 +51,12 @@ const Wrapper = styled(View)`
   border-radius: 99px;
 `;
 
-const InputWrapper = styled(View)<{
-  width?: number | string;
-  height?: number;
-  padding?: string;
-}>`
-  height: ${({height}) => (height ? `${height}px` : '40px')};
-  width: ${({width}) => (width ? `${width}px` : '100%')};
+const InputWrapper = styled(View)`
+  height: 40px;
+  width: 100%;
   border-radius: 99px;
+
+  line-height: 100%;
 
   display: flex;
   flex-direction: row;
@@ -81,18 +67,15 @@ const InputWrapper = styled(View)<{
   padding: 8px 56px 8px 16px;
 `;
 
-const StyledInput = styled(TextInput)<{
-  typo: KeyOfTypo;
-  value?: string;
-}>`
+const StyledInput = styled(TextInput)`
   line-height: 100%;
   width: 100%;
-  height: 100%;
+  height: 40px;
 
   ${theme.typo.Body1};
   color: ${theme.palette.text_normal};
 
   ${Platform.OS === 'ios' &&
-  ` padding-bottom: 4px; /* iOS에서 하단 패딩을 조정하여 수직 가운데 정렬 */
+  ` padding-bottom: 8px; /* iOS에서 하단 패딩을 조정하여 수직 가운데 정렬 */
 `}
 `;
