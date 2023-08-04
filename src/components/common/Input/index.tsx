@@ -45,6 +45,7 @@ const LINE_COLOR = {
  */
 export const Input = ({
   variant,
+  isSmall,
   name,
   control,
   label,
@@ -57,7 +58,7 @@ export const Input = ({
     name,
   });
   return (
-    <Wrapper>
+    <Wrapper isSmall={isSmall}>
       {label && <Label variant={variant}>{label}</Label>}
       <InputWrapper variant={variant}>
         <StyledInput
@@ -74,8 +75,10 @@ export const Input = ({
   );
 };
 
-const Wrapper = styled(View)`
-  margin: 0px 16px;
+const Wrapper = styled(View)<{
+  isSmall?: boolean;
+}>`
+  margin: ${({isSmall}) => (isSmall ? '0px' : '0px 16px')};
   display: flex;
 `;
 
