@@ -12,6 +12,10 @@ export interface CategoryDropdownProps {
   setCategory: React.Dispatch<React.SetStateAction<string>>;
 }
 
+/**
+ * @param category: string;
+ * @param setCategory: React.Dispatch<React.SetStateAction<string>>;
+ */
 export const CategoryDropdown = ({
   category,
   setCategory,
