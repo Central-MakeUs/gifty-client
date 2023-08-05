@@ -73,9 +73,9 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace "com.gifty"
+    namespace "com.zenefit"
     defaultConfig {
-        applicationId "com.gifty"
+        applicationId "com.zenefit"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

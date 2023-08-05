@@ -1,4 +1,4 @@
-package com.gifty;
+package com.zenefit;
 
 import android.app.Application;
 import com.facebook.react.PackageList;
