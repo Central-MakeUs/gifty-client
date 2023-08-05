@@ -30,7 +30,7 @@ export const palette = {
 
   background_primary: '#f9fafb',
   background_secondary: '#ffffff',
-  background_teritary: '#f0f2f4',
+  background_tertiary: '#f0f2f4',
 
   line_normal: '#e4e5e7',
   line_alternative: '#f2f2f3',
