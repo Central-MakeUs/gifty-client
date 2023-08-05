@@ -19,12 +19,12 @@ interface SmallBoxProps extends TouchableOpacityProps {
 
 const BORDER_COLOR = {
   on: {
-    line: `${theme.palette.line_normal}`,
+    line: `${theme.palette.primary_normal}`,
     fill: 'transparent',
     text: 'transparent',
   },
   off: {
-    line: `${theme.palette.primary_normal}`,
+    line: `${theme.palette.line_normal}`,
     fill: 'transparent',
     text: 'transparent',
   },
@@ -37,14 +37,14 @@ const BORDER_COLOR = {
 
 const TEXT_COLOR = {
   on: {
-    line: `${theme.palette.text_alternative}`,
-    fill: `${theme.palette.text_alternative}`,
-    text: `${theme.palette.text_alternative}`,
-  },
-  off: {
     line: `${theme.palette.primary_normal}`,
     fill: `${theme.palette.white}`,
     text: `${theme.palette.primary_normal}`,
+  },
+  off: {
+    line: `${theme.palette.text_alternative}`,
+    fill: `${theme.palette.text_alternative}`,
+    text: `${theme.palette.text_alternative}`,
   },
   disable: {
     line: `${theme.palette.text_disable}`,
@@ -55,17 +55,17 @@ const TEXT_COLOR = {
 
 const BUTTON_COLOR = {
   on: {
-    line: 'transparent',
-    fill: `${theme.palette.fill_normal}`,
-    text: 'transparent',
-  },
-  off: {
-    line: 'transparent',
+    line: `${theme.palette.white}`,
     fill: `${theme.palette.primary_normal}`,
     text: 'transparent',
   },
+  off: {
+    line: `${theme.palette.white}`,
+    fill: `${theme.palette.fill_normal}`,
+    text: 'transparent',
+  },
   disable: {
-    line: 'transparent',
+    line: `${theme.palette.white}`,
     fill: `${theme.palette.fill_disable}`,
     text: 'transparent',
   },
