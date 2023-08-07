@@ -1,7 +1,7 @@
 /* eslint-disable react/react-in-jsx-scope */
 import {css, styled} from 'styled-components';
 import {Text, TouchableOpacity} from 'react-native';
-import {theme} from '../../../styles/theme/theme';
+import {theme, KeyOfTypo} from '../../../styles/theme/theme';
 import LinearGradient, {
   LinearGradientProps,
 } from 'react-native-linear-gradient';
@@ -14,6 +14,7 @@ interface LongButtonProps extends Omit<LinearGradientProps, 'colors'> {
   variant: ButtonVariant;
   type: ButtonType;
   height?: number;
+  typo?: KeyOfTypo;
   disabled?: boolean;
 }
 
@@ -71,6 +72,8 @@ const BUTTON_COLOR = {
  * @default TouchableOpacityProps
  * @param variant 'default' | 'gradation' | 'sub';
  * @param type 'fill' | 'long';
+ * @param height?: number;
+ * @param typo?: keyOfTypo;
  * @param disabled?
  */
 export const LongButton = ({
@@ -78,6 +81,7 @@ export const LongButton = ({
   variant,
   type,
   height,
+  typo,
   disabled,
 }: LongButtonProps) => {
   const [isPressed, setIsPressed] = useState(false);
@@ -113,6 +117,7 @@ export const LongButton = ({
           variant={variant}
           type={type}
           isPressed={isPressed}
+          typo={typo}
           disabled={disabled}>
           {children}
         </StyledText>
@@ -140,9 +145,11 @@ const StyledText = styled(Text)<{
   variant: ButtonVariant;
   type: ButtonType;
   isPressed: boolean;
+  typo?: KeyOfTypo;
   disabled?: boolean;
 }>`
-  ${theme.typo.Label1};
+  ${({typo}) => (typo ? `${theme.typo[typo]}` : `${theme.typo.Label1}`)};
+
   color: ${({variant}) => `${TEXT_COLOR.normal[variant]}`};
 
   padding: 8px 12px;
