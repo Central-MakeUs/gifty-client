@@ -1,4 +1,4 @@
-package com.gifty;
+package com.zenefit;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
@@ -13,7 +13,7 @@ public class MainActivity extends ReactActivity {
    */
   @Override
   protected String getMainComponentName() {
-    return "Gifty";
+    return "Zenefit";
   }
 
   /**
@@ -25,7 +25,7 @@ public class MainActivity extends ReactActivity {
   protected ReactActivityDelegate createReactActivityDelegate() {
     return new DefaultReactActivityDelegate(
         this,
-        "Gifty",
+        "Zenefit",
         // If you opted-in for the New Architecture, we enable the Fabric Renderer.
         DefaultNewArchitectureEntryPoint.getFabricEnabled());
   }

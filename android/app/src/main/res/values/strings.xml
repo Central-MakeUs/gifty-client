@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Zenefit</string>
+    <string name="kakao_app_key">dc6611c55d6fc25f51b4c1547703e037</string>
 </resources>
