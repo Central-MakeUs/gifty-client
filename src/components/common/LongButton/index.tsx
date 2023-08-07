@@ -145,6 +145,8 @@ const StyledText = styled(Text)<{
   ${theme.typo.Label1};
   color: ${({variant}) => `${TEXT_COLOR.normal[variant]}`};
 
+  padding: 8px 12px;
+
   ${({isPressed, variant}) =>
     isPressed
       ? css`
