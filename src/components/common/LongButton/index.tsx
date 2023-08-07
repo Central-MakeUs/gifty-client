@@ -15,6 +15,7 @@ interface LongButtonProps extends Omit<LinearGradientProps, 'colors'> {
   type: ButtonType;
   height?: number;
   typo?: KeyOfTypo;
+  isSubButton?: boolean;
   disabled?: boolean;
   onPressIn?: ((event: GestureResponderEvent) => void) | undefined;
 }
@@ -77,6 +78,7 @@ const BUTTON_COLOR = {
  * @param typo?: keyOfTypo;
  * @param disabled?
  * @param onPressIn?: ((event: GestureResponderEvent) => void) | undefined;
+ * @param isSubButton?: boolean; 서브 버튼인 경우 마진 제거
  */
 export const LongButton = ({
   children,
@@ -85,6 +87,7 @@ export const LongButton = ({
   height,
   typo,
   disabled,
+  isSubButton,
   onPressIn,
 }: LongButtonProps) => {
   const [isPressed, setIsPressed] = useState(false);
@@ -102,6 +105,7 @@ export const LongButton = ({
     <StyledTouchableOpacity
       activeOpacity={1}
       type={type}
+      isSubButton={isSubButton}
       onPressIn={handlePressIn}
       onPressOut={handlePressOut}>
       <StyledLinearGradient
@@ -175,7 +179,9 @@ const StyledText = styled(Text)<{
 
 const StyledTouchableOpacity = styled(TouchableOpacity)<{
   type: ButtonType;
+  isSubButton?: boolean;
 }>`
   align-items: flex-start;
-  margin: ${({type}) => (type === 'long' ? '0px 16px 0px 16px' : '0px')};
+  margin: ${({type, isSubButton}) =>
+    type === 'long' && !isSubButton ? '0px 16px 0px 16px' : '0px'};
 `;
