@@ -36,8 +36,17 @@ const CHIP_COLOR: Record<applicationType, ChipsVariant> = {
 };
 
 /**
- * @param category: string;
- * @param setCategory: React.Dispatch<React.SetStateAction<string>>;
+ * @param imgUrl?: string;
+ * @param institution: string;
+ * @param policy: string;
+ * @param description: string;
+ * @param applicationWay: applicationType[];
+ * @param disabled?: boolean;
+ * @param price: number;
+ * @param onApplyPress?: (event: GestureResponderEvent) => void;
+ * @param isSaved: boolean;
+ * @param onCalendarPress?: (event: GestureResponderEvent) => void;
+ * @param isCheck: boolean;
  */
 export const Welfare = ({
   imgUrl,
