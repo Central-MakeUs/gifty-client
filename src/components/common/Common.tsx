@@ -18,3 +18,20 @@ export const Space = styled(View)<{
   height: ${({height}) => (height ? `${height}px` : '')};
   width: ${({width}) => (width ? `${width}px` : '')};
 `;
+
+export const Flex = styled(View)<{
+  direction?: string;
+  align?: string;
+  justify?: string;
+  gap?: number;
+  height?: number;
+  width?: number;
+}>`
+  flex-direction: ${({direction}) => (direction ? `${direction}` : 'row')};
+  justify-content: ${({justify}) => (justify ? `${justify}` : 'center')};
+  align-items: ${({align}) => (align ? `${align}` : 'center')};
+  gap: ${({gap}) => (gap ? `${gap}px` : '0px')};
+
+  height: ${({height}) => (height ? `${height}px` : '')};
+  width: ${({width}) => (width ? `${width}px` : '')};
+`;
