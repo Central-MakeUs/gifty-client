@@ -59,7 +59,7 @@ export const typo = {
     font-family: 'Pretendard';
     font-weight: 400;
     font-size: 12px;
-    line-height: 28px;
+    line-height: 18px;
   `,
   Caption: css`
     font-family: 'Pretendard';

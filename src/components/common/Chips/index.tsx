@@ -3,7 +3,7 @@ import {Text, View} from 'react-native';
 import {styled} from 'styled-components';
 import {theme} from '../../../styles/theme';
 
-type ChipsVariant = 'primary' | 'secondary' | 'neutral' | 'disable';
+export type ChipsVariant = 'primary' | 'secondary' | 'neutral' | 'disable';
 
 const BORDER_COLOR = {
   primary: `${theme.palette.primary_assistive}`,
@@ -42,7 +42,6 @@ export const Chips = ({
 const StyledChips = styled(View)<{
   variant: ChipsVariant;
 }>`
-  height: 26px;
   border-radius: 99px;
   border: ${({variant}) => `1px solid ${BORDER_COLOR[variant]}`};
 
@@ -58,7 +57,9 @@ const StyledText = styled(Text)<{
   color: ${({variant}) => `${TEXT_COLOR[variant]}`};
   ${theme.typo.Label3};
 
-  margin: 4px 8px;
+  padding: 4px 8px;
+
+  height: 26px;
 `;
 
 const Container = styled(View)`
