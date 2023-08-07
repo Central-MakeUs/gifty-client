@@ -1,5 +1,5 @@
 import {Text, View} from 'react-native';
-import {styled} from 'styled-components';
+import {css, styled} from 'styled-components';
 import {KeyOfTypo, KeyOfPalette, theme} from '../../styles/theme/theme';
 
 export const Txt = styled(Text)<{
@@ -26,8 +26,15 @@ export const Flex = styled(View)<{
   gap?: number;
   height?: number;
   width?: number;
+  flex?: number;
 }>`
-  flex: 1;
+  ${({flex}) =>
+    flex
+      ? css`
+          flex: 1;
+        `
+      : css``};
+
   flex-direction: ${({direction}) => (direction ? `${direction}` : 'row')};
   justify-content: ${({justify}) => (justify ? `${justify}` : 'center')};
   align-items: ${({align}) => (align ? `${align}` : 'center')};
