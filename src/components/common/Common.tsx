@@ -27,11 +27,12 @@ export const Flex = styled(View)<{
   height?: number;
   width?: number;
 }>`
+  flex: 1;
   flex-direction: ${({direction}) => (direction ? `${direction}` : 'row')};
   justify-content: ${({justify}) => (justify ? `${justify}` : 'center')};
   align-items: ${({align}) => (align ? `${align}` : 'center')};
   gap: ${({gap}) => (gap ? `${gap}px` : '0px')};
 
-  height: ${({height}) => (height ? `${height}px` : '')};
-  width: ${({width}) => (width ? `${width}px` : '')};
+  height: ${({height}) => (height ? `${height}px` : '100%')};
+  width: ${({width}) => (width ? `${width}px` : '100%')};
 `;
