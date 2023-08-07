@@ -1,6 +1,6 @@
 /* eslint-disable react/react-in-jsx-scope */
 import {css, styled} from 'styled-components';
-import {Text, TouchableOpacity} from 'react-native';
+import {GestureResponderEvent, Text, TouchableOpacity} from 'react-native';
 import {theme, KeyOfTypo} from '../../../styles/theme/theme';
 import LinearGradient, {
   LinearGradientProps,
@@ -16,6 +16,7 @@ interface LongButtonProps extends Omit<LinearGradientProps, 'colors'> {
   height?: number;
   typo?: KeyOfTypo;
   disabled?: boolean;
+  onPressIn?: ((event: GestureResponderEvent) => void) | undefined;
 }
 
 const TEXT_COLOR = {
@@ -75,6 +76,7 @@ const BUTTON_COLOR = {
  * @param height?: number;
  * @param typo?: keyOfTypo;
  * @param disabled?
+ * @param onPressIn?: ((event: GestureResponderEvent) => void) | undefined;
  */
 export const LongButton = ({
   children,
@@ -83,11 +85,13 @@ export const LongButton = ({
   height,
   typo,
   disabled,
+  onPressIn,
 }: LongButtonProps) => {
   const [isPressed, setIsPressed] = useState(false);
 
   const handlePressIn = () => {
     setIsPressed(true);
+    onPressIn;
   };
 
   const handlePressOut = () => {
