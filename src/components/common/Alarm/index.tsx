@@ -32,6 +32,7 @@ export const Alarm = ({policy, description, alarmType, isRead}: AlarmProps) => {
         </Txt>
         <Txt
           numberOfLines={2}
+          ellipsizeMode="tail"
           typo="Body1"
           color={isRead ? 'text_assistive' : 'text_normal'}>
           {description}
@@ -45,10 +46,11 @@ const Wrapper = styled(View)`
   margin: 0px 16px;
   padding: 24px 16px;
 
+  height: 108px;
   border-radius: 16px;
 
   background-color: ${theme.palette.background_secondary};
-  border: ${theme.palette.line_alternative};
+  border: 1px solid ${theme.palette.line_alternative};
 
   flex-direction: row;
   align-items: flex-start;
