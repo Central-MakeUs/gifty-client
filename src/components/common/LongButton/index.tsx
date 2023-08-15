@@ -1,7 +1,7 @@
 /* eslint-disable react/react-in-jsx-scope */
 import {css, styled} from 'styled-components';
-import {Text, TouchableOpacity} from 'react-native';
-import {theme} from '../../../styles/theme/theme';
+import {GestureResponderEvent, Text, TouchableOpacity} from 'react-native';
+import {theme, KeyOfTypo} from '../../../styles/theme/theme';
 import LinearGradient, {
   LinearGradientProps,
 } from 'react-native-linear-gradient';
@@ -14,7 +14,10 @@ interface LongButtonProps extends Omit<LinearGradientProps, 'colors'> {
   variant: ButtonVariant;
   type: ButtonType;
   height?: number;
+  typo?: KeyOfTypo;
+  isSubButton?: boolean;
   disabled?: boolean;
+  onPressIn?: ((event: GestureResponderEvent) => void) | undefined;
 }
 
 const TEXT_COLOR = {
@@ -71,19 +74,27 @@ const BUTTON_COLOR = {
  * @default TouchableOpacityProps
  * @param variant 'default' | 'gradation' | 'sub';
  * @param type 'fill' | 'long';
+ * @param height?: number;
+ * @param typo?: keyOfTypo;
  * @param disabled?
+ * @param onPressIn?: ((event: GestureResponderEvent) => void) | undefined;
+ * @param isSubButton?: boolean; 서브 버튼인 경우 마진 제거
  */
 export const LongButton = ({
   children,
   variant,
   type,
   height,
+  typo,
   disabled,
+  isSubButton,
+  onPressIn,
 }: LongButtonProps) => {
   const [isPressed, setIsPressed] = useState(false);
 
   const handlePressIn = () => {
     setIsPressed(true);
+    onPressIn;
   };
 
   const handlePressOut = () => {
@@ -94,6 +105,7 @@ export const LongButton = ({
     <StyledTouchableOpacity
       activeOpacity={1}
       type={type}
+      isSubButton={isSubButton}
       onPressIn={handlePressIn}
       onPressOut={handlePressOut}>
       <StyledLinearGradient
@@ -113,6 +125,7 @@ export const LongButton = ({
           variant={variant}
           type={type}
           isPressed={isPressed}
+          typo={typo}
           disabled={disabled}>
           {children}
         </StyledText>
@@ -140,10 +153,14 @@ const StyledText = styled(Text)<{
   variant: ButtonVariant;
   type: ButtonType;
   isPressed: boolean;
+  typo?: KeyOfTypo;
   disabled?: boolean;
 }>`
-  ${theme.typo.Label1};
+  ${({typo}) => (typo ? `${theme.typo[typo]}` : `${theme.typo.Label1}`)};
+
   color: ${({variant}) => `${TEXT_COLOR.normal[variant]}`};
+
+  padding: 8px 12px;
 
   ${({isPressed, variant}) =>
     isPressed
@@ -162,7 +179,9 @@ const StyledText = styled(Text)<{
 
 const StyledTouchableOpacity = styled(TouchableOpacity)<{
   type: ButtonType;
+  isSubButton?: boolean;
 }>`
   align-items: flex-start;
-  margin: ${({type}) => (type === 'long' ? '0px 16px 0px 16px' : '0px')};
+  margin: ${({type, isSubButton}) =>
+    type === 'long' && !isSubButton ? '0px 16px 0px 16px' : '0px'};
 `;
