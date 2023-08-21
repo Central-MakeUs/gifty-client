@@ -1,4 +1,4 @@
-import {Text, View} from 'react-native';
+import {Text, View, SafeAreaView} from 'react-native';
 import {css, styled} from 'styled-components';
 import {KeyOfTypo, KeyOfPalette, theme} from '../../styles/theme/theme';
 
@@ -41,5 +41,9 @@ export const Flex = styled(View)<{
   gap: ${({gap}) => (gap ? `${gap}px` : '0px')};
 
   height: ${({height}) => (height ? `${height}px` : '100%')};
-  width: ${({width}) => (width ? `${width}px` : '100%')};
+  width: ${({width}) => (width ? `${width}px` : 'auto')};
+`;
+
+export const Layout = styled(SafeAreaView)`
+  margin: 60px 16px 0px 16px;
 `;

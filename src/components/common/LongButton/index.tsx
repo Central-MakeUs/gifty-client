@@ -92,9 +92,9 @@ export const LongButton = ({
 }: LongButtonProps) => {
   const [isPressed, setIsPressed] = useState(false);
 
-  const handlePressIn = () => {
+  const handlePressIn = (event: GestureResponderEvent) => {
     setIsPressed(true);
-    onPressIn;
+    onPressIn && onPressIn(event);
   };
 
   const handlePressOut = () => {
@@ -181,6 +181,7 @@ const StyledTouchableOpacity = styled(TouchableOpacity)<{
   type: ButtonType;
   isSubButton?: boolean;
 }>`
+  width: 100%;
   align-items: flex-start;
   margin: ${({type, isSubButton}) =>
     type === 'long' && !isSubButton ? '0px 16px 0px 16px' : '0px'};
