@@ -1,17 +1,21 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useController, UseControllerProps} from 'react-hook-form';
 import {Platform, TextInput, TextInputProps, Text, View} from 'react-native';
 import styled from 'styled-components';
 import {theme} from '../../../styles/theme';
+import {Flex} from '../Common';
+import {useState} from 'react';
 
 type InputVariant = 'default' | 'present' | 'caution' | 'disable';
 
 export interface InputProps extends TextInputProps, UseControllerProps {
-  variant: InputVariant;
   defaultValue?: string;
   label?: string;
   helperText?: string;
-  isSmall?: boolean;
+  disabled?: boolean;
+  isError?: boolean;
+  required?: boolean;
+  rightIcon?: any;
 }
 
 const TEXT_COLOR = {
@@ -38,48 +42,74 @@ const LINE_COLOR = {
 /**
  * @default: TextInputProps, UseControllerProps
  *
- * @param variant: 'default' | 'present' | 'caution' | 'disable';
  * @param label?: string;
  * @param helperText?: string 인풋 아래 텍스트
- * @param isSmall?: boolean; 병렬로 사용하는 input인 경우 true
  */
 export const Input = ({
-  variant,
-  isSmall,
   name,
   control,
   label,
   helperText,
+  disabled,
+  isError,
+  required,
+  rightIcon,
   ...props
 }: InputProps) => {
   const {field} = useController({
     control,
     defaultValue: '',
     name,
+    rules: {required},
   });
+  const [variant, setVariant] = useState<InputVariant>('default');
+
+  useEffect(() => {
+    if (isError) {
+      setVariant('caution');
+    }
+  }, [isError]);
+
+  useEffect(() => {
+    if (disabled) {
+      setVariant('disable');
+    }
+  }, [disabled]);
+
   return (
-    <Wrapper isSmall={isSmall}>
-      {label && <Label variant={variant}>{label}</Label>}
-      <InputWrapper variant={variant}>
-        <StyledInput
-          variant={variant}
-          textAlignVertical={Platform.OS === 'android' ? 'center' : 'auto'}
-          placeholderTextColor={`${theme.palette.text_alternative}`}
-          value={field.value}
-          onChangeText={field.onChange}
-          {...props}
-        />
-      </InputWrapper>
-      {helperText && <HelperText variant={variant}>{helperText}</HelperText>}
+    <Wrapper>
+      <Flex direction="column" align="flex-start" justify="flex-start" flex={1}>
+        {label && <Label variant={variant}>{label}</Label>}
+        <InputWrapper variant={variant}>
+          <StyledInput
+            variant={variant}
+            onFocus={() => setVariant('present')}
+            onBlur={() => setVariant('default')}
+            textAlignVertical={Platform.OS === 'android' ? 'center' : 'auto'}
+            placeholderTextColor={
+              variant !== 'disable'
+                ? `${theme.palette.text_alternative}`
+                : `${theme.palette.text_disable}`
+            }
+            value={field.value}
+            onChangeText={field.onChange}
+            editable={!disabled}
+            {...props}
+          />
+          {rightIcon}
+        </InputWrapper>
+        {helperText && variant !== 'default' && variant !== 'disable' && (
+          <HelperText variant={variant}>{helperText}</HelperText>
+        )}
+      </Flex>
     </Wrapper>
   );
 };
 
-const Wrapper = styled(View)<{
-  isSmall?: boolean;
-}>`
-  margin: ${({isSmall}) => (isSmall ? '0px' : '0px 16px')};
-  display: flex;
+const Wrapper = styled(View)`
+  align-items: flex-start;
+  max-height: 64px;
+  flex: 1;
 `;
 
 const InputWrapper = styled(View)<{
@@ -107,12 +137,11 @@ const StyledInput = styled(TextInput)<{
 
   ${theme.typo.Label1};
   color: ${({variant}) => `${TEXT_COLOR[variant]}`};
+  flex: 1;
 
   ${Platform.OS === 'ios' &&
   ` padding-bottom: 8px; /* iOS에서 하단 패딩을 조정하여 수직 가운데 정렬 */
 `}
-
-  margin-bottom: 4px;
 `;
 
 const Label = styled(Text)<{

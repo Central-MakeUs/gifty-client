@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import {KakaoOAuthToken, login} from '@react-native-seoul/kakao-login';
+import appleAuth from '@invertase/react-native-apple-authentication';
 import React from 'react';
 import {SafeAreaView, View} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
@@ -9,12 +10,15 @@ import {KakaoButton} from '../../assets/login/KakaoButton';
 import {LoginLogo} from '../../assets/login/LoginLogo';
 import {Flex, Txt} from '../../components/common/Common';
 import {theme} from '../../styles/theme';
+import {useNavigation} from '@react-navigation/native';
 
 export const LoginScreen = ({onLogin}: {onLogin: () => void}) => {
+  const navigation = useNavigation();
   const KakaoLogin = async () => {
     try {
       const result: KakaoOAuthToken = await login();
       console.log('Login Success', JSON.stringify(result));
+      navigation.navigate('Join');
     } catch (error: any) {
       if (error.code === 'E_CANCELLED_OPERATION') {
         console.log('Login Cancel', error.message);
@@ -26,7 +30,7 @@ export const LoginScreen = ({onLogin}: {onLogin: () => void}) => {
 
   return (
     <View>
-      <StyledLinearGradient
+      <LinearGradient
         colors={['#0080FF', '#00AAFF']}
         start={{x: 0, y: 0}}
         end={{x: 0, y: 1}}>
@@ -46,12 +50,10 @@ export const LoginScreen = ({onLogin}: {onLogin: () => void}) => {
             </Flex>
           </Flex>
         </Wrapper>
-      </StyledLinearGradient>
+      </LinearGradient>
     </View>
   );
 };
-
-const StyledLinearGradient = styled(LinearGradient)``;
 
 const Wrapper = styled(SafeAreaView)`
   align-items: center;

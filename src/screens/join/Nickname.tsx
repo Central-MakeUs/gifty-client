@@ -1,20 +1,14 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable react-native/no-inline-styles */
 /* eslint-disable react/react-in-jsx-scope */
-import {useEffect, useState} from 'react';
-import {Flex, Layout, Space, Txt} from '../../components/common/Common';
-import {StepTitle} from '../../components/join/StepTitle/StepTitle';
-import {Input} from '../../components/common/Input';
-import {useForm} from 'react-hook-form';
-import {LongButton} from '../../components/common/LongButton';
-import {Keyboard, KeyboardAvoidingView} from 'react-native';
-import {Platform} from 'react-native';
-import {Step1} from '../../components/join/Step1';
-import {Step2} from '../../components/join/Step2';
-import {Step3} from '../../components/join/Step3';
-import {theme} from '../../styles/theme';
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import {useNavigation} from '@react-navigation/native';
+import {useState} from 'react';
+import {useForm} from 'react-hook-form';
+import {Keyboard} from 'react-native';
+import {KeyboardAvoidingView, Platform} from 'react-native';
+import {Flex, Layout, Space, Txt} from '../../components/common/Common';
+import {LongButton} from '../../components/common/LongButton';
+import {NicknameInput} from '../../components/common/NicknameInput';
+import {StepTitle} from '../../components/join/StepTitle/StepTitle';
 
 const JOIN_STAGE = {
   1: {
@@ -44,9 +38,9 @@ const JOIN_STAGE = {
   },
 };
 
-export const JoinScreen = () => {
+export const NicknameScreen = () => {
   const navigation = useNavigation();
-  const [stage, setStage] = useState(JOIN_STAGE[1]);
+  const [stage, setStage] = useState(JOIN_STAGE[4]);
   const {
     control,
     watch,
@@ -62,11 +56,15 @@ export const JoinScreen = () => {
           {stage.ment}
         </Txt>
         <Space height={24} />
-        {/* TODO colum-reverse flex-end 거꾸로 회원가입 */}
         <Flex direction="column" justify="flex-start" gap={16}>
-          <Step1 control={control} />
-          <Step2 control={control} income={watch('income')} />
-          <Step3 control={control} />
+          {/* TODO NicknameInput variant 자동으로 바뀌도록 */}
+          <NicknameInput
+            variant="present"
+            control={control}
+            name="income"
+            placeholder="닉네임"
+            helperText="8글자 이내의 닉네임을 입력해주세요"
+          />
         </Flex>
       </Layout>
       <KeyboardAvoidingView
@@ -78,7 +76,7 @@ export const JoinScreen = () => {
           disabled={!isValid} // TODO
           onPressIn={() => {
             Keyboard.dismiss();
-            navigation.navigate('Nickname');
+            navigation.navigate('Agree');
           }}>
           완료
         </LongButton>

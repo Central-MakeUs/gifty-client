@@ -73,7 +73,6 @@ export const NicknameInput = ({
 };
 
 const Wrapper = styled(View)`
-  margin: 0px 16px;
   display: flex;
 `;
 
@@ -116,7 +115,7 @@ const StyledInput = styled(TextInput)<{
 const HelperText = styled(Text)<{
   variant: NicknameInput;
 }>`
-  margin-top: 4px;
+  margin: 4px 0px 0px 24px;
 
   ${theme.typo.Caption};
   color: ${({variant}) => `${SUB_TEXT_COLOR[variant]}`};

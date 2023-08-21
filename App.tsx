@@ -9,12 +9,14 @@ import {HomeScreen} from './src/screens/home';
 import {JoinScreen} from './src/screens/join';
 import {LoginScreen} from './src/screens/login';
 import {theme} from './src/styles/theme/theme';
+import {NicknameScreen} from './src/screens/join/Nickname';
+import {AgreeScreen} from './src/screens/join/Agree';
 
 function App(): JSX.Element {
   const [queryClient] = useState(() => new QueryClient());
   const Tab = createBottomTabNavigator();
   const Stack = createNativeStackNavigator();
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // 로그인 상태 추가
+  const [isLoggedIn, setIsLoggedIn] = useState(true); // TODO 로그인 상태 추가
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={theme}>
@@ -33,6 +35,16 @@ function App(): JSX.Element {
               <Stack.Screen
                 name="Join"
                 component={JoinScreen}
+                options={{headerShown: false}}
+              />
+              <Stack.Screen
+                name="Nickname"
+                component={NicknameScreen}
+                options={{headerShown: false}}
+              />
+              <Stack.Screen
+                name="Agree"
+                component={AgreeScreen}
                 options={{headerShown: false}}
               />
             </Stack.Navigator>
